@@ -1,0 +1,110 @@
+package GPACK;
+
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.*;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
+import java.io.File;
+
+
+
+
+
+
+public class StartScreen extends JFrame {
+	private JButton startB;
+	private JPanel startP;
+	private JLabel rImage;
+	
+	public StartScreen() throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+		
+		initialize();
+		playMusic();
+		
+		
+	}
+	
+	public void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
+		
+		
+		// NECESSRY FRAME STUFF
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // || When the red button is clicked, window closes ||
+		setLocationRelativeTo(null); // || Sets the window to appear on center of the screen ||
+		setLayout(new BorderLayout()); // || Sets Layout to BorderLayout ||
+		pack(); // || I don't know what this does ||
+		//
+		
+		//MY FRAME STUFF
+		setResizable(true); // || User can't resize the frame ||
+		setTitle("Start Screen");  // || Sets the title of FRAME ||
+		 setSize(1000, 900); // || Size Preference ||
+		setVisible(true); // || Makes frame visible ||
+		//
+		
+		
+		
+		
+		//PANEL & IMAGELABEL
+		startP = new JPanel();
+		startP.setLayout(new BorderLayout());
+		add(startP, BorderLayout.CENTER);
+		
+		ImageIcon background=new ImageIcon("G-FIGHTERF_1000x900.jpg");
+	    Image img=background.getImage();
+	    Image temp=img.getScaledInstance(1000,800,Image.SCALE_SMOOTH);
+	    background= new ImageIcon(temp);
+	    rImage = new JLabel(background);
+	    rImage.setLayout(new GridBagLayout() );
+	    rImage.setBounds(0,0,1000,900);
+	    startP.add(rImage);
+	    //
+	    
+	    
+	    
+	    
+	    // START BUTTON
+	    JButton startB = new JButton("START");
+	    startB.setForeground(Color.BLACK);
+	    startB.setBackground(Color.BLACK);
+	    startB.setOpaque(true);
+	    startB.setPreferredSize(new Dimension(400, 100));
+	    startB.setFont(new Font("Sabo", Font.BOLD, 80));
+	    // 
+	    
+	    
+
+	     // Add Button to imageLabel
+	    rImage.add(startB, new GridBagConstraints());
+	    //
+	    
+	    
+	    
+	    
+	
+		
+	}
+	
+	public static void playMusic() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+		TimeUnit.SECONDS.sleep(1);
+		File file = new File("8BIT.wav");
+		AudioInputStream audiostream =  AudioSystem.getAudioInputStream(file);
+		Clip clip = AudioSystem.getClip();
+		clip.open(audiostream);
+		
+		clip.start();
+	}
+}

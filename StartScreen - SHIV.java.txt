@@ -33,7 +33,7 @@ public class StartScreen extends JFrame {
 	public StartScreen() throws UnsupportedAudioFileException, IOException, LineUnavailableException, InterruptedException {
 		
 		initialize();
-		playMusic();
+		//playMusic();
 		
 		
 	}
@@ -83,14 +83,63 @@ public class StartScreen extends JFrame {
 	    startB.setOpaque(true);
 	    startB.setPreferredSize(new Dimension(400, 100));
 	    startB.setFont(new Font("Sabo", Font.BOLD, 80));
+	    
 	    // 
 	    
 	    
 
 	     // Add Button to imageLabel
 	    rImage.add(startB, new GridBagConstraints());
+	    setVisible(true);
 	    //
 	    
+	    
+	    startB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getContentPane().removeAll(); // || Removes all components ||
+				repaint(); // || repaints Frame to be blank ||
+				
+				
+				// New Panel
+				JPanel nameGameP = new JPanel();
+				nameGameP.setLayout(null);
+				nameGameP.setBackground(Color.BLACK);
+				add(nameGameP);
+			
+				
+				// DONE BUTTON
+				JButton startB2 = new JButton("DONE");
+			    startB2.setForeground(Color.BLACK);
+			    startB2.setBackground(Color.WHITE);
+			    startB2.setFont(new Font("Sabo", Font.BOLD, 40));
+			    startB2.setBounds(30, 680, 300, 90);
+			    nameGameP.add(startB2);
+			    //
+			    
+			    
+			    
+			    
+			    
+			     // EVERYTHING YOU WANT TO ADD SHOULD BE ABOVE THIS!!!!!!!!!
+			    
+				ImageIcon background1=new ImageIcon("SelectionImage.jpg");
+				Image img=background1.getImage();
+				Image temp=img.getScaledInstance(1000,900,Image.SCALE_SMOOTH);
+				background1= new ImageIcon(temp);
+				JLabel rImage1 = new JLabel(background1);
+				rImage1.setLayout(null);
+				rImage1.setBounds(0,0,1000,900);
+				nameGameP.add(rImage1);
+				 
+				 
+				  // NECESSARY _ DO NOT REMOVE
+				 setVisible(true);	
+			}
+	    	
+	    	
+	    });
 	    
 	    
 	    
@@ -99,7 +148,7 @@ public class StartScreen extends JFrame {
 	}
 	
 	public static void playMusic() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
-		TimeUnit.SECONDS.sleep(1);
+		TimeUnit.SECONDS.sleep(0);
 		File file = new File("8BIT.wav");
 		AudioInputStream audiostream =  AudioSystem.getAudioInputStream(file);
 		Clip clip = AudioSystem.getClip();

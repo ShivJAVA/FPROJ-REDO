@@ -469,7 +469,7 @@ public class StartScreen extends JFrame {
 						
 						setQuestion();
 						second = 30;
-						minute = 0;
+						minute = 1;
 						timer.start();
 						
 						setVisible(true);

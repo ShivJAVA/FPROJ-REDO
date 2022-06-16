@@ -57,8 +57,10 @@ public class StartScreen extends JFrame {
 		DecimalFormat dFormat = new DecimalFormat("00");
 		private Timer timer;
 		private Timer blinkTimer;
+		private Timer correctTimer;
 		private JLabel timerL; 
 		private int second;
+		private int secondC;
 		private int minute;
 		private String ddSecond;
 		private String ddMinute;
@@ -70,6 +72,7 @@ public class StartScreen extends JFrame {
 		private JPanel nameGameP;
 		private JButton startB2;
 		private JButton doneB;
+		private JButton skipB;
 		private JLabel doneL;
 		private JTextField answer;
 		private JLabel glasses;
@@ -77,6 +80,8 @@ public class StartScreen extends JFrame {
 		private JLabel eyeCol;
 		private JLabel height;
 		private JLabel pointCounter;
+		private JLabel correctL;
+		private JLabel correctLName;
 		private int randPerson;
 		private int points;
 		//
@@ -159,6 +164,8 @@ public class StartScreen extends JFrame {
 	    startP.add(rImage);
 	    //
 	    
+	    playGameMusic();
+	    
 	    // START BUTTON 1 SETUP
 	    JButton startB = new JButton("START");
 	    startB.setForeground(Color.BLACK);
@@ -178,20 +185,7 @@ public class StartScreen extends JFrame {
 		 //
 	    
 	 
-	    //PLAYS MUSIC
-	    try {
-			playGameMusic();
-		} catch (UnsupportedAudioFileException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (LineUnavailableException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	    //
+	    
 	    
 	    
 	    //START BUTTON 1 ACTIONLISTENER
@@ -306,7 +300,7 @@ public class StartScreen extends JFrame {
 			    //
 			    
 			    //Timer Label
-			    timerL = new JLabel("00:30");
+			    timerL = new JLabel("01:30");
 			    timerL.setLayout(null);
 			    timerL.setBounds(775, 15, 500, 60);
 			    timerL.setFont(new Font("Arial", Font.BOLD, 60));
@@ -369,6 +363,8 @@ public class StartScreen extends JFrame {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
+							showCorrectAnswer();
+							correctTimer.start();
 						}
 						answer.setText("");
 						setQuestion();
@@ -435,6 +431,62 @@ public class StartScreen extends JFrame {
 				pointCounter.setVisible(false);
 				nameGameP.add(pointCounter);
 				//
+				
+				//SKIP BUTTON SETUP
+				skipB = new JButton("SKIP");
+				skipB.setForeground(Color.GREEN);
+				skipB.setBackground(Color.WHITE);
+				skipB.setBounds(520, 550, 300, 90);
+				skipB.setFont(new Font("Arial", Font.BOLD, 60));
+				skipB.setVisible(false);
+			    nameGameP.add(skipB);
+				//
+			    
+			    //Question SKIPPED
+			    skipB.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						try {
+							playWrongSFX();
+						} catch (UnsupportedAudioFileException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (LineUnavailableException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						showCorrectAnswer();
+						correctTimer.start();
+						setQuestion();
+						
+					}
+			    	
+			    	
+			    });
+			    //
+			    
+			    //CORRECT ANSWER LABEL
+			    correctL = new JLabel("Correct Answer WAS: ");
+			    correctL.setLayout(null);
+			    correctL.setBounds(10, 350, 400, 400);
+			    correctL.setFont(new Font("Arial", Font.BOLD, 30));
+			    correctL.setForeground(Color.GREEN);
+			    correctL.setVisible(false);
+				nameGameP.add(correctL);
+				//
+				
+				// Correct Name Label
+				correctLName = new JLabel();
+				correctLName.setLayout(null);
+				correctLName.setBounds(10, 400, 400, 400);
+				correctLName.setFont(new Font("Arial", Font.BOLD, 30));
+			    correctLName.setForeground(Color.GREEN);
+			    correctLName.setVisible(false);
+				nameGameP.add(correctLName);
 			    
 			    // START BUTTON 2 SETUP
 			    startB2 = new JButton("BEGIN");
@@ -454,6 +506,7 @@ public class StartScreen extends JFrame {
 						points = 0;
 						pointCounter.setText("Points: " + points);
 						answered = new ArrayList<>();
+						skipB.setVisible(true);
 						timerL.setVisible(true);
 						timerBack.setVisible(true);
 						startB2.setVisible(false);
@@ -468,8 +521,8 @@ public class StartScreen extends JFrame {
 						
 						
 						setQuestion();
-						second = 30;
-						minute = 1;
+						second = 3;
+						minute = 0;
 						timer.start();
 						
 						setVisible(true);
@@ -606,12 +659,40 @@ public class StartScreen extends JFrame {
 	
 	//
 		
-		
+	public void showCorrectAnswer() {
+		secondC = 0;
+		correctLName.setText(allNames.get(randPerson));
+		correctTimer = new Timer(1000, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (secondC == 1) {
+					correctTimer.stop();
+					secondC = 0;
+					correctL.setVisible(false);
+					correctLName.setVisible(false);
+					
+				} else {
+					correctL.setVisible(true);
+					correctLName.setVisible(true);
+					secondC++;
+				}
+				
+			}
+	    	
+	    	
+	    }); 
+	    //
+	}
 	
 	//Sets up screen after DONE is pressed
 	public void doneScreen() {
+		correctL.setText("");
+		correctLName.setText("");
 		doneB.setVisible(true);
 		doneB.setEnabled(true);
+		skipB.setVisible(false);
+		skipB.setEnabled(false);
 		glasses.setVisible(false);
 		hairCol.setVisible(false);
 		eyeCol.setVisible(false);
@@ -651,7 +732,7 @@ public class StartScreen extends JFrame {
 	
 	
 	
-	//SETS UP ALL TEH TEXT FILES
+	//SETS UP ALL THE TEXT FILES
 	public void setFiles () {
 	    allEyes = importFile("eye.txt");
 	    allGlasses = importFile("glasses.txt");
@@ -698,5 +779,7 @@ public class StartScreen extends JFrame {
 	//
 }
 	
+
+
 
 

@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.io.File;
 import java.util.ArrayList;
@@ -150,7 +151,7 @@ public class StartScreen extends JFrame {
 		add(startP, BorderLayout.CENTER);
 		//
 		
-		
+		playGameMusic();
 		
 		
 		//IMAGE 1 SETUP
@@ -163,8 +164,7 @@ public class StartScreen extends JFrame {
 	    rImage.setBounds(0,0,1000,900);
 	    startP.add(rImage);
 	    //
-	    
-	    playGameMusic();
+	  
 	    
 	    // START BUTTON 1 SETUP
 	    JButton startB = new JButton("START");
@@ -300,7 +300,7 @@ public class StartScreen extends JFrame {
 			    //
 			    
 			    //Timer Label
-			    timerL = new JLabel("01:30");
+			    timerL = new JLabel("00:10");
 			    timerL.setLayout(null);
 			    timerL.setBounds(775, 15, 500, 60);
 			    timerL.setFont(new Font("Arial", Font.BOLD, 60));
@@ -521,8 +521,8 @@ public class StartScreen extends JFrame {
 						
 						
 						setQuestion();
-						second = 3;
-						minute = 0;
+						second = 30;
+						minute = 1;
 						timer.start();
 						
 						setVisible(true);
@@ -565,6 +565,16 @@ public class StartScreen extends JFrame {
 						timerL.setVisible(true);
 						pointCounter.setVisible(true);
 						doneL.setVisible(true);
+						
+						clip.stop();
+						dispose();
+						try {
+							StartMenu kop = new StartMenu(0);
+						} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 					}
 			    	
 			    	
@@ -666,7 +676,7 @@ public class StartScreen extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (secondC == 1) {
+				if (secondC >= 1) {
 					correctTimer.stop();
 					secondC = 0;
 					correctL.setVisible(false);
@@ -779,7 +789,4 @@ public class StartScreen extends JFrame {
 	//
 }
 	
-
-
-
 

@@ -252,13 +252,13 @@ public class PersonalGenie extends JPanel implements ActionListener, KeyListener
 
 			if (count5 == 1) {
 			
-		//	t3.start();
+			t3.start();
 			
 			}
 			
 			count5 = 1;
 			
-	//		if (happ) {
+			if (happ) {
 			
 			JLabel newLabel = new JLabel();
 			newLabel.setBounds(lblNewLabel.getX(), lblNewLabel.getY(), 60, 60);
@@ -272,7 +272,7 @@ public class PersonalGenie extends JPanel implements ActionListener, KeyListener
 			t1.start();
 
 			
-	//	}
+		}
 			
 			happ = false;
 			

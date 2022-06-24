@@ -521,8 +521,8 @@ public class StartScreen extends JFrame {
 						
 						
 						setQuestion();
-						second = 30;
-						minute = 1;
+						second = 10;
+						minute = 0;
 						timer.start();
 						
 						setVisible(true);
@@ -561,6 +561,7 @@ public class StartScreen extends JFrame {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						boolean[] blank = {false, false, false, false};
 						blinkTimer.stop();
 						timerL.setVisible(true);
 						pointCounter.setVisible(true);
@@ -569,7 +570,7 @@ public class StartScreen extends JFrame {
 						clip.stop();
 						dispose();
 						try {
-							StartMenu kop = new StartMenu(0);
+							StartMenu kop = new StartMenu(points, 200, "Selection", "SpaceMenu.jpg", blank);
 						} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -788,5 +789,3 @@ public class StartScreen extends JFrame {
 	  }
 	//
 }
-	
-

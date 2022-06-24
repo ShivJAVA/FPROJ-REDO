@@ -35,7 +35,19 @@ public class StartMenu extends JFrame{
 	private ImageIcon background;
 	private JLabel mImage;
 	private JLabel menuL;
+	private JLabel berriesImage;
+	private ImageIcon berriesPNG;
 	//
+
+	private boolean[] bought = {false, false, false, false};
+	private String currentBGK;
+	
+	private JButton bg;
+	private JButton bg0;
+	private JButton bg1;
+	private JButton bg2;
+	private JButton bg3;
+	private JButton bg4;
 	
 	//Button Options UI
 	private JButton miniGamesB;
@@ -61,9 +73,46 @@ public class StartMenu extends JFrame{
 	private JLabel blackL;
 	//
 	
-	
+	//Game currency & MORE
+	private int berries;
+	private int prevGameScore;
+	private String prevGame;
+	private int berriesCurrent;
+	private JLabel berriesNum;
+	//
 
+	//Item Shop
+	private int numSpent;
+	private JPanel itemShopP;
+	private JLabel itemShopL;
+	private JButton backButtonB;
 	
+	private JButton buy1;
+	private JButton buy2;
+	private JButton buy3;
+	private JButton buy4;
+	
+	private JLabel buy1L;
+	private JLabel buy2L;
+	private JLabel buy3L;
+	private JLabel buy4L;
+	
+	private ImageIcon fireSpace;
+	private ImageIcon retroSetup;
+	private ImageIcon retroWave;
+	private ImageIcon loneAdventurer;
+	
+	private JLabel cost1;
+	private JLabel cost2;
+	private JLabel cost3;
+	private JLabel cost4;
+	
+	
+	
+	
+	
+	
+	//
 	
 	//Name Game Screen
 			//Lists
@@ -150,33 +199,46 @@ public class StartMenu extends JFrame{
 			
 		
 	//Genie Catcher Screen
+				
+			//Screen UI
 			private JPanel gCatcherP;
-			private JLabel genie;
 			private JButton beginB;
 			private ImageIcon backgroundgC;
-			private ImageIcon genieImage;
-			private JLabel screenImage;
+			private JLabel genie;
 			private JButton gCDone;
 			private JLabel gCInstr;
+			//
 			
+			//GAME UI and Components
+			private int gCPoints;
+			private boolean imageVisible;
+			private boolean compVisible;
+			
+			private ImageIcon genieImage;
+			private JLabel screenImage;	
+			private JLabel gCPointsLabel;
+			//
+			
+			
+			//Game Timers
 			private Timer gCTimer;
 			private Timer imageTimer;
 			private Timer gCBlinkTimer;
-			private boolean compVisible;
-			private JLabel gCTimerLabel;//
-			private JButton gCTimerBack;//
-			private JLabel gCPointsLabel;
-			private int gCPoints;
-			private boolean imageVisible;
-			
 			private int gCsecond;
 			private int gCminute;
 			
-			
-			
+			private JLabel gCTimerLabel;
+			private JButton gCTimerBack;
+			//
 
 	
-	public StartMenu(int score) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+	public StartMenu(int score, int currentBerries, String gamePlayed, String currentBG, boolean[] boughtStuff) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		bought = boughtStuff;
+		prevGameScore = score;
+		berriesCurrent = currentBerries;
+		prevGame = gamePlayed;
+		currentBGK = currentBG;
+		convertCoins();
 		
 		initialize();
 		playMenuMusic();
@@ -212,12 +274,223 @@ public class StartMenu extends JFrame{
 		//MENU Label
 		menuL = new JLabel("G-F MENU");
 		menuL.setLayout(null);
-		menuL.setBounds(200, 0, 900, 120);
+		menuL.setBounds(150, 0, 900, 120);
 		menuL.setFont(new Font("Serif", Font.BOLD, 120));
 		menuL.setForeground(Color.GREEN);
 	    menuPanel.add(menuL);
 		//
+		
+		
+		
+		bg0 = new JButton("OG");
+		bg0.setForeground(Color.GREEN);
+	    bg0.setBounds(380, 400, 200, 50);
+	    bg0.setFont(new Font("Serif", Font.BOLD, 40));
+	    bg0.setVisible(false);
+		menuPanel.add(bg0);
+		
+		bg0.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clip4.stop();
+				dispose();
+				currentBGK = "SpaceMenu.jpg";
+				try {
+					StartMenu kop = new StartMenu(0, berries, "None", currentBGK, bought);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			
+			
+			
+		});
+		
+		bg1 = new JButton("Fire-Space");
+		bg1.setForeground(Color.RED);
+	    bg1.setBounds(380, 470, 200, 50);
+	    bg1.setFont(new Font("Serif", Font.BOLD, 40));
+	    bg1.setVisible(false);
+		menuPanel.add(bg1);
+		
+		bg1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				clip4.stop();
+				dispose();
+				currentBGK = "fireSpace_1000x900.jpg";
+				try {
+					StartMenu kop = new StartMenu(0, berries, "None", currentBGK, bought);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			
+			
+			
+		});
+		
+		bg2 = new JButton("R-Set");
+		bg2.setForeground(Color.PINK);
+	    bg2.setBounds(380, 540, 200, 50);
+	    bg2.setFont(new Font("Serif", Font.BOLD, 40));
+	    bg2.setVisible(false);
+		menuPanel.add(bg2);
+		
+		bg2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				clip4.stop();
+				dispose();
+				currentBGK = "retroSetup_1000x900.jpg";
+				try {
+					StartMenu kop = new StartMenu(0, berries, "None", currentBGK, bought);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			
+			
+			
+		});
+		
+		bg3 = new JButton("R-Wave");
+		bg3.setForeground(Color.BLUE);
+	    bg3.setBounds(380, 610, 200, 50);
+	    bg3.setFont(new Font("Serif", Font.BOLD, 40));
+	    bg3.setVisible(false);
+		menuPanel.add(bg3);
+		
+		bg3.addActionListener(new ActionListener() {
+			
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				clip4.stop();
+				dispose();
+				currentBGK = "retroWave_1000x900.jpg";
+				try {
+					StartMenu kop = new StartMenu(0, berries, "", currentBGK, bought);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			
+			
+			
+		});
+		
+		bg4 = new JButton("Lone Adv.");
+		bg4.setForeground(Color.MAGENTA);
+	    bg4.setBounds(380, 680, 200, 50);
+	    bg4.setFont(new Font("Serif", Font.BOLD, 40));
+	    bg4.setVisible(false);
+		menuPanel.add(bg4);
+		
+		bg4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				clip4.stop();
+				dispose();
+				currentBGK = "loneAdventurer_1000x900.jpg";
+				try {
+					StartMenu kop = new StartMenu(0, berries, "None", currentBGK, bought);
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			
+			
+			
+		});
+			
 	    
+	    //WallPaper Button
+	    bg = new JButton("BGs");
+	    bg.setForeground(Color.MAGENTA);
+	    bg.setBackground(Color.RED);
+	    bg.setBounds(410, 700, 150, 80);
+	    bg.setFont(new Font("Serif", Font.BOLD, 40));
+		menuPanel.add(bg);
+		//
+		
+		
+		
+		bg.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				miniGamesB.setVisible(false);
+				levelsB.setVisible(false);
+				itemShopB.setVisible(false);
+				bg.setVisible(false);
+				blackL.setBounds(300,350,370,450);
+				blackL.setVisible(true);
+				bg0.setVisible(true);
+				if (bought[0] == true) {
+					bg1.setVisible(true);
+				}
+				
+				if (bought[1] == true) {
+					bg2.setVisible(true);
+				}
+				
+				if (bought[2] == true) {
+					bg3.setVisible(true);
+				}
+				
+				if (bought[3] == true) {
+					bg4.setVisible(true);
+				}
+				
+				
+				
+			}
+			
+			
+		});
+	    
+	    
+	    //Berries PNG
+	    berriesPNG	= new ImageIcon("Berries.png");
+		Image img2=berriesPNG.getImage();
+		Image temp2=img2.getScaledInstance(100,100,Image.SCALE_SMOOTH);
+		berriesPNG = new ImageIcon(temp2);
+		berriesImage = new JLabel(berriesPNG);
+		berriesImage.setLayout(null);
+		berriesImage.setBounds(760,0,100,100);
+		menuPanel.add(berriesImage);
+	    
+	    
+	    
+	    //
+	    
+	    //Curency Label
+	    berriesNum = new JLabel(saveNumSpace());
+	    berriesNum.setLayout(null);
+	    berriesNum.setBounds(870, 30, 300, 60);
+	    berriesNum.setFont(new Font("Serif", Font.BOLD, 60));
+	    berriesNum.setForeground(Color.WHITE);
+	    menuPanel.add(berriesNum);
 	    
 		
 	    //Menu Mini Giames Button
@@ -230,6 +503,9 @@ public class StartMenu extends JFrame{
 		//
 		
 		
+		
+		
+		
 		//MiniGames button is pressed
 		miniGamesB.addActionListener(new ActionListener() {
 
@@ -240,6 +516,7 @@ public class StartMenu extends JFrame{
 				miniGamesB.setVisible(false);
 				levelsB.setVisible(false);
 				itemShopB.setVisible(false);
+				bg.setVisible(false);
 				blackL.setVisible(true);
 				back1.setVisible(true);
 				MG1.setVisible(true);
@@ -270,6 +547,7 @@ public class StartMenu extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				LVLbuttonVisible = true;
 				blackL.setBounds(300,350,370,450);
+				bg.setVisible(false);
 				miniGamesB.setVisible(false);
 				levelsB.setVisible(false);
 				itemShopB.setVisible(false);
@@ -295,6 +573,292 @@ public class StartMenu extends JFrame{
 		menuPanel.add(itemShopB);
 		//
 		
+		itemShopB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				numSpent = 0;
+				getContentPane().removeAll(); // || Removes all components ||
+				repaint();
+				
+				// PANEL 2 SETUP
+				itemShopP = new JPanel();
+				itemShopP.setLayout(null);
+				itemShopP.setBackground(Color.BLACK);
+				add(itemShopP);
+				//
+				
+				backButtonB = new JButton("BACK");
+				backButtonB.setForeground(Color.GREEN);
+				backButtonB.setBackground(Color.RED);
+				backButtonB.setBounds(0, 370, 140, 80);
+				backButtonB.setFont(new Font("Serif", Font.BOLD, 30));
+				itemShopP.add(backButtonB);
+				
+				backButtonB.addActionListener(new ActionListener() {
+					
+					
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						clip4.stop();
+						dispose();
+						
+						try {
+							StartMenu kop = new StartMenu(numSpent, berries, "Item Shop", currentBGK, bought);
+						} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+					}
+					
+					
+				});
+				
+				itemShopL = new JLabel("ITEM SHOP");
+				itemShopL.setLayout(null);
+				itemShopL.setBounds(80, 0, 900, 120);
+				itemShopL.setFont(new Font("Serif", Font.BOLD, 120));
+				itemShopL.setForeground(Color.GREEN);
+			    itemShopP.add(itemShopL);
+			    
+			    
+			    
+			  //BUY BUTTONS
+			    
+			    //BUY1
+				buy1 = new JButton("BUY");
+				buy1.setForeground(Color.BLACK);
+				buy1.setBackground(Color.RED);
+				buy1.setBounds(600, 150, 170, 100);
+				buy1.setFont(new Font("Serif", Font.BOLD, 30));
+				buy1.setEnabled(false);
+				itemShopP.add(buy1);
+				//
+				
+				buy1.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						numSpent += 1000;
+						bought[0] = true;
+						buy1.setEnabled(false);
+					}
+					
+					
+					
+				});
+				
+				
+				//BUY2
+				buy2 = new JButton("BUY");
+				buy2.setForeground(Color.BLACK);
+				buy2.setBackground(Color.RED);
+				buy2.setBounds(600, 300, 170, 100);
+				buy2.setFont(new Font("Serif", Font.BOLD, 30));
+				buy2.setEnabled(false);
+				itemShopP.add(buy2);
+				//
+				
+				buy2.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						numSpent += 2000;
+						bought[1] = true;
+						buy2.setEnabled(false);
+					}
+					
+					
+					
+				});
+				
+				
+				//BUY3
+				buy3 = new JButton("BUY");
+				buy3.setForeground(Color.BLACK);
+				buy3.setBackground(Color.RED);
+				buy3.setBounds(600, 450, 170, 100);
+				buy3.setFont(new Font("Serif", Font.BOLD, 30));
+				buy3.setEnabled(false);
+				itemShopP.add(buy3);
+				//
+				
+				buy3.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						numSpent += 6000;
+						bought[2] = true;
+						buy3.setEnabled(false);
+					}
+					
+					
+					
+				});
+				
+				//BUY4
+				buy4 = new JButton("BUY");
+				buy4.setForeground(Color.BLACK);
+				buy4.setBackground(Color.RED);
+				buy4.setBounds(600, 600, 170, 100);
+				buy4.setFont(new Font("Serif", Font.BOLD, 30));
+				buy4.setEnabled(false);
+				itemShopP.add(buy4);
+				//
+				
+				buy4.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						numSpent += 8000;
+						bought[3] = true;
+						buy4.setEnabled(false);
+					}
+					
+					
+					
+				});
+				
+				checkBerries();
+			//
+				
+				//Cost Labels 
+				cost1 = new JLabel("1000");
+				cost1.setLayout(null);
+				cost1.setBounds(800, 160, 900, 80);
+				cost1.setFont(new Font("Serif", Font.BOLD, 80));
+				cost1.setForeground(Color.WHITE);
+			    itemShopP.add(cost1);
+			    
+			    cost2 = new JLabel("2000");
+			    cost2.setLayout(null);
+			    cost2.setBounds(800, 310, 900, 80);
+			    cost2.setFont(new Font("Serif", Font.BOLD, 80));
+			    cost2.setForeground(Color.WHITE);
+			    itemShopP.add(cost2);
+			    
+			    cost3 = new JLabel("6000");
+			    cost3.setLayout(null);
+			    cost3.setBounds(800, 460, 900, 80);
+			    cost3.setFont(new Font("Serif", Font.BOLD, 80));
+			    cost3.setForeground(Color.WHITE);
+			    itemShopP.add(cost3);
+			    
+			    cost4 = new JLabel("8000");
+			    cost4.setLayout(null);
+			    cost4.setBounds(800, 610, 900, 80);
+			    cost4.setFont(new Font("Serif", Font.BOLD, 80));
+			    cost4.setForeground(Color.WHITE);
+			    itemShopP.add(cost4);
+				//
+				
+			//SHOP OPTIONS
+
+				
+				//FIRE SPACE PIC
+			    fireSpace = new ImageIcon("fireSpace_1000x900.jpg");
+				Image img2=fireSpace.getImage();
+				Image temp2=img2.getScaledInstance(200,120,Image.SCALE_SMOOTH);
+				fireSpace = new ImageIcon(temp2);
+				buy1L = new JLabel(fireSpace);
+				buy1L.setLayout(null);
+				buy1L.setBounds(200,100,200,200);
+				itemShopP.add(buy1L);
+				//
+				
+				
+				//RETRO SETUP PIC
+				retroSetup = new ImageIcon("retroSetup_1000x900.jpg");
+				Image img4=retroSetup.getImage();
+				Image temp4=img4.getScaledInstance(200,120,Image.SCALE_SMOOTH);
+				retroSetup = new ImageIcon(temp4);
+				buy2L = new JLabel(retroSetup);
+				buy2L.setLayout(null);
+				buy2L.setBounds(200,250,200,200);
+				itemShopP.add(buy2L);
+				//
+				
+				
+				//RETRO WAVE PIC
+				retroWave = new ImageIcon("retroWave_1000x900.jpg");
+				Image img5=retroWave.getImage();
+				Image temp5=img5.getScaledInstance(200,120,Image.SCALE_SMOOTH);
+				retroWave = new ImageIcon(temp5);
+				buy3L = new JLabel(retroWave);
+				buy3L.setLayout(null);
+				buy3L.setBounds(200,400,200,200);
+				itemShopP.add(buy3L);
+				//
+				
+				//LONE ADVENTURER PIC
+				loneAdventurer = new ImageIcon("loneAdventurer_1000x900.jpg");
+				Image img6=loneAdventurer.getImage();
+				Image temp6=img6.getScaledInstance(200,120,Image.SCALE_SMOOTH);
+				loneAdventurer = new ImageIcon(temp6);
+				buy4L = new JLabel(loneAdventurer);
+				buy4L.setLayout(null);
+				buy4L.setBounds(200,550,200,200);
+				itemShopP.add(buy4L);
+				
+				//Black Image Setup
+				black = new ImageIcon("black.jpeg");
+				Image img7=black.getImage();
+				Image temp7=img7.getScaledInstance(300,600,Image.SCALE_SMOOTH);
+				black = new ImageIcon(temp7);
+				blackL = new JLabel(black);
+				blackL.setLayout(null);
+				blackL.setBounds(150,110,300,630);
+				itemShopP.add(blackL);
+				//
+				
+				
+			//
+			    
+			    //Berries PNG
+			    berriesPNG	= new ImageIcon("Berries.png");
+				Image img3=berriesPNG.getImage();
+				Image temp3=img3.getScaledInstance(100,100,Image.SCALE_SMOOTH);
+				berriesPNG = new ImageIcon(temp3);
+				berriesImage = new JLabel(berriesPNG);
+				berriesImage.setLayout(null);
+				berriesImage.setBounds(760,0,100,100);
+				itemShopP.add(berriesImage);
+			    
+			    
+			    
+			    //Curency Label
+			    berriesNum = new JLabel(saveNumSpace());
+			    berriesNum.setLayout(null);
+			    berriesNum.setBounds(870, 30, 300, 60);
+			    berriesNum.setFont(new Font("Serif", Font.BOLD, 60));
+			    berriesNum.setForeground(Color.WHITE);
+			    itemShopP.add(berriesNum);
+			    
+			    
+			  //Menu Background
+			    background=new ImageIcon("SpaceMenu.jpg");
+				Image img=background.getImage();
+				Image temp=img.getScaledInstance(1000,900,Image.SCALE_SMOOTH);
+				background= new ImageIcon(temp);
+				mImage = new JLabel(background);
+				mImage.setLayout(null);
+				mImage.setBounds(0,0,1000,900);
+				itemShopP.add(mImage);
+				//
+			    
+				
+				
+				
+				setVisible(true);
+			    
+				
+			}
+			
+			
+		});
+		
 		//Back button 1
 		back1 = new JButton("BACK");
 		back1.setForeground(Color.GREEN);
@@ -319,6 +883,7 @@ public class StartMenu extends JFrame{
 				miniGamesB.setVisible(true);
 				levelsB.setVisible(true);
 				itemShopB.setVisible(true);
+				bg.setVisible(true);
 				
 				
 			}
@@ -352,6 +917,7 @@ public class StartMenu extends JFrame{
 				miniGamesB.setVisible(true);
 				levelsB.setVisible(true);
 				itemShopB.setVisible(true);
+				bg.setVisible(true);
 				
 				
 			}
@@ -359,7 +925,7 @@ public class StartMenu extends JFrame{
 		});
 		//
 		
-		//MiniGmae 1 Button
+		//MiniGame 1 Button
 		MG1 = new JButton("Name - Game");
 		MG1.setForeground(Color.RED);
 		MG1.setBounds(330, 230, 300, 100);
@@ -461,9 +1027,9 @@ public class StartMenu extends JFrame{
 	    
 	    //Black Image Setup
 		black = new ImageIcon("black.jpeg");
-		Image img2=black.getImage();
-		Image temp2=img2.getScaledInstance(370,450,Image.SCALE_SMOOTH);
-		black = new ImageIcon(temp2);
+		Image img3=black.getImage();
+		Image temp3=img3.getScaledInstance(370,450,Image.SCALE_SMOOTH);
+		black = new ImageIcon(temp3);
 		blackL = new JLabel(black);
 		blackL.setLayout(null);
 		blackL.setVisible(false);
@@ -472,7 +1038,7 @@ public class StartMenu extends JFrame{
 		//
 	    
 		//Menu Background
-	    background=new ImageIcon("SpaceMenu.jpg");
+	    background=new ImageIcon(currentBGK);
 		Image img=background.getImage();
 		Image temp=img.getScaledInstance(1000,900,Image.SCALE_SMOOTH);
 		background= new ImageIcon(temp);
@@ -826,7 +1392,7 @@ public class StartMenu extends JFrame{
 						
 						setQuestion();
 						second = 30;
-						minute = 0;
+						minute = 1;
 						timer.start();
 						
 						setVisible(true);
@@ -870,7 +1436,7 @@ public class StartMenu extends JFrame{
 						clip.stop();
 						dispose();
 						try {
-							StartMenu kop = new StartMenu(0);
+							StartMenu kop = new StartMenu(points, berries, "NameGame", currentBGK, bought);
 						} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -1081,7 +1647,7 @@ public class StartMenu extends JFrame{
 						dispose();
 						
 						try {
-							StartMenu kop = new StartMenu(0);
+							StartMenu kop = new StartMenu(gCPoints, berries, "GC", currentBGK, bought);
 						} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -1245,8 +1811,10 @@ public class StartMenu extends JFrame{
 					gCPointsLabel.setVisible(true);
 					gCTimerLabel.setVisible(true);
 					gCTimerBack.setVisible(true);
+					
 					gCsecond = 30;
-					gCminute = 0;
+					gCminute = 1;
+					
 					gCTimer.start();
 					imageTimer.start();
 					
@@ -1401,6 +1969,76 @@ public class StartMenu extends JFrame{
 			
 		}
 		//
+		
+		public void convertCoins() {
+			if (prevGame.equals("Selection")) {
+				if (prevGameScore >= 3) {
+					
+					berries = 500;
+					
+				} else if(prevGameScore >= 7) {
+					
+					berries = 1000;
+					
+				} else if(prevGameScore >= 13) {
+					
+					berries = 2500;
+					
+				} else {
+					berries = 200;
+				}
+			} else if(prevGame.equals("GC")) {
+				
+				berries = (prevGameScore*1000) + berriesCurrent;
+				
+			} else if(prevGame.equals("NameGame")) {
+				
+				berries = (prevGameScore*50) + berriesCurrent;
+				
+			} else if(prevGame.equals("Item Shop")) {
+				berries = berriesCurrent - prevGameScore;
+			} else {
+				berries = berriesCurrent;
+				
+			}
+		}
+		
+		public String saveNumSpace() {
+			String newNum = "";
+			if (berries >= 10000) {
+				int berriesTThsnd = berries / 10000;
+				int berriesThsnd = (berries - (berriesTThsnd * 10000)) / 1000;
+				newNum = berriesTThsnd + "" + berriesThsnd + "K";
+			} else if (berries >= 1000){
+				int berriesThsnd = berries / 1000;
+				int berriesHnd =  (berries - (berriesThsnd * 1000)) / 100;
+				newNum = berriesThsnd + "." + berriesHnd + "K";
+			} else {
+				newNum = "" + berries;
+			}
+			return newNum;
+		}
+		
+		public void checkBerries() {
+			
+			if (berries >= 1000 && (bought[0] == false)) {
+				buy1.setEnabled(true);
+			}
+			
+			if (berries >= 2000 && (bought[1] == false)) {
+				buy2.setEnabled(true);
+			}
+			
+			if (berries >= 6000 && (bought[2] == false)) {
+				buy3.setEnabled(true);
+			}
+			
+			if (berries >= 8000 && (bought[3] == false)) {
+				buy4.setEnabled(true);
+			}
+		}
+		
+		
 		
 		
 		
